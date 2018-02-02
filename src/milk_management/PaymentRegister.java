@@ -73,8 +73,8 @@ public class PaymentRegister extends JInternalFrame {
         this.totalsTable.setModel(footerTableModel);
         this.btnFilter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String strToDate = PaymentRegister.this.toDate.getJFormattedTextField().getText();
-                String strFromDate = PaymentRegister.this.fromDate.getJFormattedTextField().getText();
+                String strToDate = PaymentRegister.this.toDate.getJFormattedTextField().getText() + " 23:59:59";
+                String strFromDate = PaymentRegister.this.fromDate.getJFormattedTextField().getText() + " 00:00:00";
                 System.out.println("Dates: " + strToDate + " " + strFromDate);
                 if (!strToDate.equals("") && !strFromDate.equals("")) {
                     int i;
@@ -114,7 +114,7 @@ public class PaymentRegister extends JInternalFrame {
                                     PaymentRegister.Rate = 0.0D;
                                     PaymentRegister.Litres = 0.0D;
                                     PaymentRegister.Amount = 0.0D;
-                                    ResultSet resultSet = PaymentRegister.dbConnection.getDailyCollectionFromTo(customers.getInt("cust_id"), strFromDate + " 00:00:00", strToDate + " 23:59:59");
+                                    ResultSet resultSet = PaymentRegister.dbConnection.getDailyCollectionByCustomerAndDate(customers.getInt("cust_id"), strFromDate, strToDate);
                                     if (resultSet != null) {
                                         Double counter;
                                         for(counter = 0.0D; resultSet.next(); ) {

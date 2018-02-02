@@ -6,6 +6,7 @@ import employees.CreateEmployee;
 import employees.EditEmployee;
 import employees.ShowEmployee;
 import milk_management.*;
+import settings.BackupData;
 import settings.RateChart;
 import users.CreateUser;
 import users.DeleteUser;
@@ -183,6 +184,12 @@ public class Main extends JFrame {
         JMenuItem itemRateChart = new JMenuItem("Rate Chart");
         itemRateChart.setFont(frameTextFont);
         itemRateChart.setPreferredSize(new Dimension(200, itemExit.getPreferredSize().height + 10));
+
+        JMenuItem itemBackupData = new JMenuItem("Backup");
+        itemBackupData.setFont(frameTextFont);
+        itemBackupData.setPreferredSize(new Dimension(200, itemExit.getPreferredSize().height + 10));
+
+
         JMenuItem itemFuel = new JMenuItem("Fuel");
         itemFuel.setFont(frameTextFont);
         itemFuel.setPreferredSize(new Dimension(200, itemExit.getPreferredSize().height + 10));
@@ -206,6 +213,7 @@ public class Main extends JFrame {
         menuEmployee.add(itemEditEmployee);
         menuEmployee.add(itemShowEmployee);
         menuSettings.add(itemRateChart);
+        menuSettings.add(itemBackupData);
         menuFuel.add(itemFuel);
         itemLogout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -424,6 +432,25 @@ public class Main extends JFrame {
                 Main.desktopPane.add(Main.internalFrame);
             }
         });
+
+        itemBackupData.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (Main.internalFrame != null) {
+                    Main.internalFrame.dispose();
+                }
+
+                Main.internalFrame = new BackupData();
+                Main.internalFrame.setSize(Main.desktopPane.getWidth(), Main.desktopPane.getHeight());
+                Dimension desktopSize = Main.desktopPane.getSize();
+                Dimension jInternalFrameSize = Main.internalFrame.getSize();
+                int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+                int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+                Main.internalFrame.setLocation(width, height);
+                Main.internalFrame.setVisible(true);
+                Main.desktopPane.add(Main.internalFrame);
+            }
+        });
+
         itemCustomerProfile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (Main.internalFrame != null) {

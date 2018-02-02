@@ -493,22 +493,24 @@ public class DatabaseConnection {
         return resultSet;
     }
 
-//    public ResultSet getDailyCollectionByCustomerAndDate(int customer_id, String fromDate, String toDate) {
-//        ResultSet resultSet = null;
-//
-//        try {
-//            String sqlQuery = "SELECT * FROM daily_collection WHERE customer_id = ? AND create_at BETWEEN ? AND ?";
-//            PreparedStatement preparedStatement = con.prepareStatement(sqlQuery);
-//            preparedStatement.setInt(1, customer_id);
-//            preparedStatement.setString(2, fromDate + " 00:00:00");
-//            preparedStatement.setString(3, toDate + " 00:00:00");
-//            resultSet = preparedStatement.executeQuery();
-//        } catch (Exception var7) {
-//            var7.printStackTrace();
-//        }
-//
-//        return resultSet;
-//    }
+    public ResultSet getDailyCollectionByCustomerAndDate(int customer_id, String fromDate, String toDate) {
+        ResultSet resultSet = null;
+
+        try {
+            String sqlQuery = "SELECT * FROM daily_collection WHERE customer_id = ? AND create_at BETWEEN ? AND ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, customer_id);
+            preparedStatement.setString(2, fromDate);
+            preparedStatement.setString(3, toDate);
+            resultSet = preparedStatement.executeQuery();
+
+            System.out.println("@database Dates: " + fromDate + " " + toDate);
+        } catch (Exception var7) {
+            var7.printStackTrace();
+        }
+
+        return resultSet;
+    }
 
     public int updateDailyCollection(int customer_id, String[] values) {
         String insertQuery = "UPDATE daily_collection SET litre = ?, fat = ?, lacto = ?, snf = ?, rate = ?, total_price = ? WHERE customer_id = ? AND date = ? AND shift = ?";
