@@ -157,7 +157,7 @@ public class CustomerProfile extends JInternalFrame {
                             CustomerProfile.avgFat = CustomerProfile.avgFat.doubleValue() + Double.parseDouble(data[4]);
                             CustomerProfile.avgLacto = CustomerProfile.avgLacto.doubleValue() + Double.parseDouble(data[5]);
                             CustomerProfile.avgSnf = CustomerProfile.avgSnf.doubleValue() + Double.parseDouble(data[6]);
-                            CustomerProfile.avgRate = CustomerProfile.avgRate.doubleValue() + Double.parseDouble(data[7]);
+                            //CustomerProfile.avgRate = CustomerProfile.avgRate.doubleValue() + Double.parseDouble(data[7]);
                             CustomerProfile.totLitres = CustomerProfile.totLitres.doubleValue() + Double.parseDouble(data[3]);
                             CustomerProfile.totAmount = CustomerProfile.totAmount.doubleValue() + Double.parseDouble(data[8]);
                             ++CustomerProfile.tableRowCount;
@@ -167,7 +167,7 @@ public class CustomerProfile extends JInternalFrame {
                         CustomerProfile.avgFat = CustomerProfile.avgFat.doubleValue() / (double)CustomerProfile.tableRowCount;
                         CustomerProfile.avgLacto = CustomerProfile.avgLacto.doubleValue() / (double)CustomerProfile.tableRowCount;
                         CustomerProfile.avgSnf = CustomerProfile.avgSnf.doubleValue() / (double)CustomerProfile.tableRowCount;
-                        CustomerProfile.avgRate = CustomerProfile.avgRate.doubleValue() / (double)CustomerProfile.tableRowCount;
+                        CustomerProfile.avgRate = CustomerProfile.totAmount / CustomerProfile.totLitres;//CustomerProfile.avgRate.doubleValue() / (double)CustomerProfile.tableRowCount;
                         String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(CustomerProfile.totLitres), "" + decimalFormat.format(CustomerProfile.avgFat), "" + decimalFormat.format(CustomerProfile.avgLacto), "" + decimalFormat.format(CustomerProfile.avgSnf), "" + decimalFormat.format(CustomerProfile.avgRate), "" + decimalFormat.format(CustomerProfile.totAmount)};
                         footerTableModel.addRow(data1);
                     } catch (Exception var11) {
