@@ -239,8 +239,8 @@ public class MilkCollection extends JInternalFrame {
                     }
 
                     txtSNF.setText(strsnf);
-                    txtRate.setText("" + df.format(noRate));
-                    txtTotalPrice.setText("" + df.format(noLitre.doubleValue() * noRate.doubleValue()));
+                    txtRate.setText("" + noRate);
+                    txtTotalPrice.setText("" + noLitre.doubleValue() * noRate.doubleValue());
                 } else {
                     JOptionPane.showInternalMessageDialog(MilkCollection.this.getContentPane(), "Please enter valid Lacto.", "ERRPR", 0);
                     btnAddCollection.setEnabled(false);

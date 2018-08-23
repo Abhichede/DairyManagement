@@ -96,7 +96,7 @@ public class CustomerProfile extends JInternalFrame {
                     SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String strFromDate = fromDate.getJFormattedTextField().getText().toString() + " 00:00:00";
                     String strToDate = toDate.getJFormattedTextField().getText().toString() + " 23:59:59";
-                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                    DecimalFormat decimalFormat = new DecimalFormat("#0.000000");
                     ResultSet resultSet = CustomerProfile.dbConnection.getLastDate(Integer.parseInt(txtCustomerId.getText().toString()));
 
                     try {

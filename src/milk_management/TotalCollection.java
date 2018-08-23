@@ -96,8 +96,8 @@ public class TotalCollection extends JInternalFrame {
             avgFat = avgFat.doubleValue() / (double)tableRowCount;
             avgLacto = avgLacto.doubleValue() / (double)tableRowCount;
             avgSnf = avgSnf.doubleValue() / (double)tableRowCount;
-            avgRate = avgRate.doubleValue() / (double)tableRowCount;
-            String[] data1 = new String[]{"", "", "", "Totals:", "" + decimalFormat.format(totLitres), "" + decimalFormat.format(avgFat), "" + decimalFormat.format(avgLacto), "" + decimalFormat.format(avgSnf), "" + decimalFormat.format(avgRate), "" + decimalFormat.format(totAmount)};
+            avgRate = totAmount / totLitres;
+            String[] data1 = new String[]{"", "", "", "Totals:", "" + decimalFormat.format(totLitres), "" + decimalFormat.format(avgFat), "" + decimalFormat.format(avgLacto), "" + decimalFormat.format(avgSnf), "" + avgRate, "" + decimalFormat.format(totAmount)};
             footerTableModel.addRow(data1);
         } catch (Exception var14) {
             var14.printStackTrace();

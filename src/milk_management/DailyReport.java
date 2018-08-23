@@ -155,7 +155,7 @@ public class DailyReport extends JInternalFrame {
                         DailyReport.avgFat = DailyReport.avgFat.doubleValue() / (double)DailyReport.tableRowCount;
                         DailyReport.avgLacto = DailyReport.avgLacto.doubleValue() / (double)DailyReport.tableRowCount;
                         DailyReport.avgSnf = DailyReport.avgSnf.doubleValue() / (double)DailyReport.tableRowCount;
-                        DailyReport.avgRate = DailyReport.avgRate.doubleValue() / (double)DailyReport.tableRowCount;
+                        DailyReport.avgRate = DailyReport.totAmount / DailyReport.totLitres;
                         String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(DailyReport.totLitres), "" + decimalFormat.format(DailyReport.avgFat), "" + decimalFormat.format(DailyReport.avgLacto), "" + decimalFormat.format(DailyReport.avgSnf), "" + decimalFormat.format(DailyReport.avgRate), "" + decimalFormat.format(DailyReport.totAmount)};
                         footerTableModel.addRow(data1);
                     } catch (Exception var7) {
