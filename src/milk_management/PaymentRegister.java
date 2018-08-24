@@ -120,9 +120,9 @@ public class PaymentRegister extends JInternalFrame {
                                         for(counter = 0.0D; resultSet.next(); ) {
                                             PaymentRegister.Fat = PaymentRegister.Fat.doubleValue() + Double.parseDouble(resultSet.getString("fat"));
                                             PaymentRegister.Snf = PaymentRegister.Snf.doubleValue() + Double.parseDouble(resultSet.getString("snf"));
-                                            PaymentRegister.Rate = PaymentRegister.Rate.doubleValue() + Double.parseDouble(resultSet.getString("rate"));
                                             PaymentRegister.Litres = PaymentRegister.Litres.doubleValue() + Double.parseDouble(resultSet.getString("litre"));
                                             PaymentRegister.Amount = PaymentRegister.Amount.doubleValue() + Double.parseDouble(resultSet.getString("total_price"));
+//                                            PaymentRegister.Rate = PaymentRegister.Rate.doubleValue() + Double.parseDouble(resultSet.getString("rate"));
 
                                             if(Double.parseDouble(resultSet.getString("total_price")) > 0.0) {
                                                 counter = counter.doubleValue() + 1.0D;
@@ -136,7 +136,7 @@ public class PaymentRegister extends JInternalFrame {
                                         if (PaymentRegister.Litres.doubleValue() != 0.0D) {
                                             data[3] = decimalFormat.format(PaymentRegister.Fat.doubleValue() / counter.doubleValue());
                                             data[4] = decimalFormat.format(PaymentRegister.Snf.doubleValue() / counter.doubleValue());
-                                            data[5] = decimalFormat.format(PaymentRegister.Rate.doubleValue() / counter.doubleValue());
+                                            data[5] = decimalFormat.format(PaymentRegister.Amount / PaymentRegister.Litres);
                                             PaymentRegister.avgFat = PaymentRegister.avgFat.doubleValue() + PaymentRegister.Fat.doubleValue() / counter.doubleValue();
                                             PaymentRegister.avgSnf = PaymentRegister.avgSnf.doubleValue() + PaymentRegister.Snf.doubleValue() / counter.doubleValue();
 //                                            PaymentRegister.avgRate = PaymentRegister.avgRate.doubleValue() + PaymentRegister.Rate.doubleValue() / counter.doubleValue();
