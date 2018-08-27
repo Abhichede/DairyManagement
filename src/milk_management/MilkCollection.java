@@ -211,7 +211,7 @@ public class MilkCollection extends JInternalFrame {
                     Double noLitre = Double.parseDouble(txtLitre.getText().toString());
                     Double noFAT = Double.parseDouble(txtFAT.getText().toString());
                     Double noLacto = Double.parseDouble(txtLacto.getText().toString());
-                    Double noSNF = noLacto.doubleValue() / 4.0D + 0.21D * noFAT.doubleValue() + 0.36D;
+                    Double noSNF = noLacto / 4.0D + 0.21D * noFAT + 0.36D;
                     DecimalFormat df = new DecimalFormat("#.#");
                     df.setRoundingMode(RoundingMode.CEILING);
                     Double noRate = 0.0D;
@@ -240,7 +240,7 @@ public class MilkCollection extends JInternalFrame {
 
                     txtSNF.setText(strsnf);
                     txtRate.setText("" + noRate);
-                    txtTotalPrice.setText("" + noLitre.doubleValue() * noRate.doubleValue());
+                    txtTotalPrice.setText("" + noLitre * noRate);
                 } else {
                     JOptionPane.showInternalMessageDialog(MilkCollection.this.getContentPane(), "Please enter valid Lacto.", "ERRPR", 0);
                     btnAddCollection.setEnabled(false);
@@ -486,8 +486,8 @@ public class MilkCollection extends JInternalFrame {
             Double noLitre = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 3)));
             Double noFAT = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 4)));
             Double noLacto = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 5)));
-            Double noSNF = noLacto.doubleValue() / 4.0D + 0.21D * noFAT.doubleValue() + 0.36D;
-            DecimalFormat df = new DecimalFormat("#.#");
+            Double noSNF = noLacto / 4.0D + 0.21D * noFAT + 0.36D;
+            DecimalFormat df = new DecimalFormat("#.####");
             df.setRoundingMode(RoundingMode.CEILING);
             Double noRate = 0.0D;
             String strsnf;
@@ -511,7 +511,7 @@ public class MilkCollection extends JInternalFrame {
 
             table.setValueAt(strsnf, rowIndex, 6);
             table.setValueAt(df.format(noRate), rowIndex, 7);
-            table.setValueAt(df.format(noLitre.doubleValue() * noRate.doubleValue()), rowIndex, 8);
+            table.setValueAt(df.format(noLitre * noRate), rowIndex, 8);
         } else if (this.isDouble(String.valueOf(table.getValueAt(rowIndex, 3)))) {
             this.btnEdit.setEnabled(false);
             JOptionPane.showInternalMessageDialog(this.getContentPane(), "Please enter valid Litres", "Error", 0);

@@ -154,20 +154,20 @@ public class CustomerProfile extends JInternalFrame {
                             data[6] = resultSet.getString("snf");
                             data[7] = resultSet.getString("rate");
                             data[8] = resultSet.getString("total_price");
-                            CustomerProfile.avgFat = CustomerProfile.avgFat.doubleValue() + Double.parseDouble(data[4]);
-                            CustomerProfile.avgLacto = CustomerProfile.avgLacto.doubleValue() + Double.parseDouble(data[5]);
-                            CustomerProfile.avgSnf = CustomerProfile.avgSnf.doubleValue() + Double.parseDouble(data[6]);
-                            //CustomerProfile.avgRate = CustomerProfile.avgRate.doubleValue() + Double.parseDouble(data[7]);
-                            CustomerProfile.totLitres = CustomerProfile.totLitres.doubleValue() + Double.parseDouble(data[3]);
-                            CustomerProfile.totAmount = CustomerProfile.totAmount.doubleValue() + Double.parseDouble(data[8]);
+                            CustomerProfile.avgFat = CustomerProfile.avgFat + Double.parseDouble(data[4]);
+                            CustomerProfile.avgLacto = CustomerProfile.avgLacto + Double.parseDouble(data[5]);
+                            CustomerProfile.avgSnf = CustomerProfile.avgSnf + Double.parseDouble(data[6]);
+                            //CustomerProfile.avgRate = CustomerProfile.avgRate + Double.parseDouble(data[7]);
+                            CustomerProfile.totLitres = CustomerProfile.totLitres + Double.parseDouble(data[3]);
+                            CustomerProfile.totAmount = CustomerProfile.totAmount + Double.parseDouble(data[8]);
                             ++CustomerProfile.tableRowCount;
                             CustomerProfile.defaultTableModel.addRow(data);
                         }
 
-                        CustomerProfile.avgFat = CustomerProfile.avgFat.doubleValue() / (double)CustomerProfile.tableRowCount;
-                        CustomerProfile.avgLacto = CustomerProfile.avgLacto.doubleValue() / (double)CustomerProfile.tableRowCount;
-                        CustomerProfile.avgSnf = CustomerProfile.avgSnf.doubleValue() / (double)CustomerProfile.tableRowCount;
-                        CustomerProfile.avgRate = CustomerProfile.totAmount / CustomerProfile.totLitres;//CustomerProfile.avgRate.doubleValue() / (double)CustomerProfile.tableRowCount;
+                        CustomerProfile.avgFat = CustomerProfile.avgFat / (double)CustomerProfile.tableRowCount;
+                        CustomerProfile.avgLacto = CustomerProfile.avgLacto / (double)CustomerProfile.tableRowCount;
+                        CustomerProfile.avgSnf = CustomerProfile.avgSnf / (double)CustomerProfile.tableRowCount;
+                        CustomerProfile.avgRate = CustomerProfile.totAmount / CustomerProfile.totLitres;//CustomerProfile.avgRate / (double)CustomerProfile.tableRowCount;
                         String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(CustomerProfile.totLitres), "" + decimalFormat.format(CustomerProfile.avgFat), "" + decimalFormat.format(CustomerProfile.avgLacto), "" + decimalFormat.format(CustomerProfile.avgSnf), "" + decimalFormat.format(CustomerProfile.avgRate), "" + decimalFormat.format(CustomerProfile.totAmount)};
                         footerTableModel.addRow(data1);
                     } catch (Exception var11) {
@@ -186,7 +186,7 @@ public class CustomerProfile extends JInternalFrame {
                     SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yy");
                     String inputString1 = CustomerProfile.defaultTableModel.getValueAt(0, 0).toString();
                     String inputString2 = CustomerProfile.defaultTableModel.getValueAt(usersTable.getRowCount() - 1, 0).toString();
-                    DecimalFormat df = new DecimalFormat("#.##");
+                    DecimalFormat df = new DecimalFormat("#.######");
                     df.setRoundingMode(RoundingMode.CEILING);
 
                     try {

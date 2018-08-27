@@ -141,22 +141,22 @@ public class DailyReport extends JInternalFrame {
                                 data[6] = resultSet.getString("snf");
                                 data[7] = resultSet.getString("rate");
                                 data[8] = resultSet.getString("total_price");
-                                DailyReport.avgFat = DailyReport.avgFat.doubleValue() + Double.parseDouble(data[4]);
-                                DailyReport.avgLacto = DailyReport.avgLacto.doubleValue() + Double.parseDouble(data[5]);
-                                DailyReport.avgSnf = DailyReport.avgSnf.doubleValue() + Double.parseDouble(data[6]);
-                                DailyReport.avgRate = DailyReport.avgRate.doubleValue() + Double.parseDouble(data[7]);
-                                DailyReport.totLitres = DailyReport.totLitres.doubleValue() + Double.parseDouble(data[3]);
-                                DailyReport.totAmount = DailyReport.totAmount.doubleValue() + Double.parseDouble(data[8]);
+                                DailyReport.avgFat = DailyReport.avgFat + Double.parseDouble(data[4]);
+                                DailyReport.avgLacto = DailyReport.avgLacto + Double.parseDouble(data[5]);
+                                DailyReport.avgSnf = DailyReport.avgSnf + Double.parseDouble(data[6]);
+                                DailyReport.avgRate = DailyReport.avgRate + Double.parseDouble(data[7]);
+                                DailyReport.totLitres = DailyReport.totLitres + Double.parseDouble(data[3]);
+                                DailyReport.totAmount = DailyReport.totAmount + Double.parseDouble(data[8]);
                                 ++DailyReport.tableRowCount;
                                 DailyReport.defaultTableModel.addRow(data);
                             }
                         }
 
-                        DailyReport.avgFat = DailyReport.avgFat.doubleValue() / (double)DailyReport.tableRowCount;
-                        DailyReport.avgLacto = DailyReport.avgLacto.doubleValue() / (double)DailyReport.tableRowCount;
-                        DailyReport.avgSnf = DailyReport.avgSnf.doubleValue() / (double)DailyReport.tableRowCount;
+                        DailyReport.avgFat = DailyReport.avgFat / (double)DailyReport.tableRowCount;
+                        DailyReport.avgLacto = DailyReport.avgLacto / (double)DailyReport.tableRowCount;
+                        DailyReport.avgSnf = DailyReport.avgSnf / (double)DailyReport.tableRowCount;
                         DailyReport.avgRate = DailyReport.totAmount / DailyReport.totLitres;
-                        String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(DailyReport.totLitres), "" + decimalFormat.format(DailyReport.avgFat), "" + decimalFormat.format(DailyReport.avgLacto), "" + decimalFormat.format(DailyReport.avgSnf), "" + decimalFormat.format(DailyReport.avgRate), "" + decimalFormat.format(DailyReport.totAmount)};
+                        String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(DailyReport.totLitres), "" + decimalFormat.format(DailyReport.avgFat), "" + decimalFormat.format(DailyReport.avgLacto), "" + decimalFormat.format(DailyReport.avgSnf), "" + DailyReport.avgRate, "" + DailyReport.totAmount};
                         footerTableModel.addRow(data1);
                     } catch (Exception var7) {
                         var7.printStackTrace();

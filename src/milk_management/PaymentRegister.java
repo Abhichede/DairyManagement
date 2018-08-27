@@ -66,7 +66,7 @@ public class PaymentRegister extends JInternalFrame {
         defaultTableModel = new DefaultTableModel(0, 0);
         this.$$$setupUI$$$();
         defaultTableModel.setColumnIdentifiers(column);
-        final DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        final DecimalFormat decimalFormat = new DecimalFormat("#0.000000");
         this.registerTable.setModel(defaultTableModel);
         final DefaultTableModel footerTableModel = new DefaultTableModel(0, 0);
         footerTableModel.setColumnIdentifiers(footerColumn);
@@ -118,14 +118,14 @@ public class PaymentRegister extends JInternalFrame {
                                     if (resultSet != null) {
                                         Double counter;
                                         for(counter = 0.0D; resultSet.next(); ) {
-                                            PaymentRegister.Fat = PaymentRegister.Fat.doubleValue() + Double.parseDouble(resultSet.getString("fat"));
-                                            PaymentRegister.Snf = PaymentRegister.Snf.doubleValue() + Double.parseDouble(resultSet.getString("snf"));
-                                            PaymentRegister.Litres = PaymentRegister.Litres.doubleValue() + Double.parseDouble(resultSet.getString("litre"));
-                                            PaymentRegister.Amount = PaymentRegister.Amount.doubleValue() + Double.parseDouble(resultSet.getString("total_price"));
-//                                            PaymentRegister.Rate = PaymentRegister.Rate.doubleValue() + Double.parseDouble(resultSet.getString("rate"));
+                                            PaymentRegister.Fat = PaymentRegister.Fat + Double.parseDouble(resultSet.getString("fat"));
+                                            PaymentRegister.Snf = PaymentRegister.Snf + Double.parseDouble(resultSet.getString("snf"));
+                                            PaymentRegister.Litres = PaymentRegister.Litres + Double.parseDouble(resultSet.getString("litre"));
+                                            PaymentRegister.Amount = PaymentRegister.Amount + Double.parseDouble(resultSet.getString("total_price"));
+//                                            PaymentRegister.Rate = PaymentRegister.Rate + Double.parseDouble(resultSet.getString("rate"));
 
                                             if(Double.parseDouble(resultSet.getString("total_price")) > 0.0) {
-                                                counter = counter.doubleValue() + 1.0D;
+                                                counter = counter + 1.0D;
                                             }
                                         }
 
@@ -133,25 +133,25 @@ public class PaymentRegister extends JInternalFrame {
                                         data[1] = customers.getString("cust_name");
                                         data[2] = decimalFormat.format(PaymentRegister.Litres);
                                         data[6] = decimalFormat.format(PaymentRegister.Amount);
-                                        if (PaymentRegister.Litres.doubleValue() != 0.0D) {
-                                            data[3] = decimalFormat.format(PaymentRegister.Fat.doubleValue() / counter.doubleValue());
-                                            data[4] = decimalFormat.format(PaymentRegister.Snf.doubleValue() / counter.doubleValue());
+                                        if (PaymentRegister.Litres != 0.0D) {
+                                            data[3] = decimalFormat.format(PaymentRegister.Fat / counter);
+                                            data[4] = decimalFormat.format(PaymentRegister.Snf / counter);
                                             data[5] = decimalFormat.format(PaymentRegister.Amount / PaymentRegister.Litres);
-                                            PaymentRegister.avgFat = PaymentRegister.avgFat.doubleValue() + PaymentRegister.Fat.doubleValue() / counter.doubleValue();
-                                            PaymentRegister.avgSnf = PaymentRegister.avgSnf.doubleValue() + PaymentRegister.Snf.doubleValue() / counter.doubleValue();
-//                                            PaymentRegister.avgRate = PaymentRegister.avgRate.doubleValue() + PaymentRegister.Rate.doubleValue() / counter.doubleValue();
+                                            PaymentRegister.avgFat = PaymentRegister.avgFat + PaymentRegister.Fat / counter;
+                                            PaymentRegister.avgSnf = PaymentRegister.avgSnf + PaymentRegister.Snf / counter;
+//                                            PaymentRegister.avgRate = PaymentRegister.avgRate + PaymentRegister.Rate / counter;
                                         } else {
                                             data[3] = decimalFormat.format(0.0D);
                                             data[4] = decimalFormat.format(0.0D);
                                             data[5] = decimalFormat.format(0.0D);
                                             data[6] = decimalFormat.format(0.0D);
-                                            PaymentRegister.avgFat = PaymentRegister.avgFat.doubleValue() + 0.0D;
-                                            PaymentRegister.avgSnf = PaymentRegister.avgSnf.doubleValue() + 0.0D;
-//                                            PaymentRegister.avgRate = PaymentRegister.avgRate.doubleValue() + 0.0D;
+                                            PaymentRegister.avgFat = PaymentRegister.avgFat + 0.0D;
+                                            PaymentRegister.avgSnf = PaymentRegister.avgSnf + 0.0D;
+//                                            PaymentRegister.avgRate = PaymentRegister.avgRate + 0.0D;
                                         }
 
-                                        PaymentRegister.totLitres = PaymentRegister.totLitres.doubleValue() + Double.parseDouble(data[2]);
-                                        PaymentRegister.totAmount = PaymentRegister.totAmount.doubleValue() + Double.parseDouble(data[6]);
+                                        PaymentRegister.totLitres = PaymentRegister.totLitres + Double.parseDouble(data[2]);
+                                        PaymentRegister.totAmount = PaymentRegister.totAmount + Double.parseDouble(data[6]);
                                         PaymentRegister.avgRate = PaymentRegister.totAmount / PaymentRegister.totLitres;
                                         if(Double.parseDouble(data[6]) > 0.0) {
                                             ++mainCounter;
@@ -164,7 +164,7 @@ public class PaymentRegister extends JInternalFrame {
                             }
                         }
 
-                        data = new String[]{"Totals:", "" + decimalFormat.format(PaymentRegister.totLitres), "" + decimalFormat.format(PaymentRegister.avgFat.doubleValue() / (double)mainCounter), "" + decimalFormat.format(PaymentRegister.avgSnf.doubleValue() / (double)mainCounter), "" + decimalFormat.format(PaymentRegister.avgRate.doubleValue()), "" + decimalFormat.format(PaymentRegister.totAmount)};
+                        data = new String[]{"Totals:", "" + decimalFormat.format(PaymentRegister.totLitres), "" + decimalFormat.format(PaymentRegister.avgFat / (double)mainCounter), "" + decimalFormat.format(PaymentRegister.avgSnf / (double)mainCounter), "" + decimalFormat.format(PaymentRegister.avgRate), "" + decimalFormat.format(PaymentRegister.totAmount)};
                         footerTableModel.addRow(data);
                     } catch (Exception var11) {
                         var11.printStackTrace();
