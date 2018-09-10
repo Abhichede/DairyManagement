@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -115,7 +116,8 @@ public class DailyReport extends JInternalFrame {
                     }
 
                     String strToDate = toDate.getJFormattedTextField().getText().toString();
-                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                    DecimalFormat decimalFormat = new DecimalFormat("0.00####");
+                    decimalFormat.setRoundingMode(RoundingMode.CEILING);
                     ResultSet resultSet = null;
                     String[] data = new String[9];
                     resultSet = DailyReport.dbConnection.getDailyCollectionByDate(strToDate);
@@ -156,7 +158,7 @@ public class DailyReport extends JInternalFrame {
                         DailyReport.avgLacto = DailyReport.avgLacto / (double)DailyReport.tableRowCount;
                         DailyReport.avgSnf = DailyReport.avgSnf / (double)DailyReport.tableRowCount;
                         DailyReport.avgRate = DailyReport.totAmount / DailyReport.totLitres;
-                        String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(DailyReport.totLitres), "" + decimalFormat.format(DailyReport.avgFat), "" + decimalFormat.format(DailyReport.avgLacto), "" + decimalFormat.format(DailyReport.avgSnf), "" + DailyReport.avgRate, "" + DailyReport.totAmount};
+                        String[] data1 = new String[]{"", "", "Totals:", "" + decimalFormat.format(DailyReport.totLitres), "" + decimalFormat.format(DailyReport.avgFat), "" + decimalFormat.format(DailyReport.avgLacto), "" + decimalFormat.format(DailyReport.avgSnf), "" + decimalFormat.format(DailyReport.avgRate), "" + decimalFormat.format(DailyReport.totAmount)};
                         footerTableModel.addRow(data1);
                     } catch (Exception var7) {
                         var7.printStackTrace();

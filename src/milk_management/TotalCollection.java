@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
 
@@ -36,7 +37,8 @@ public class TotalCollection extends JInternalFrame {
         JPanel panelMain = new JPanel(new BorderLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
         new JPanel();
-        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        DecimalFormat decimalFormat = new DecimalFormat("0.00##");
+        decimalFormat.setRoundingMode(RoundingMode.CEILING);
         bottomPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         final JTable usersTable = new JTable();
         usersTable.setSelectionMode(0);

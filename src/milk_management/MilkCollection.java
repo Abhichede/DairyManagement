@@ -487,7 +487,7 @@ public class MilkCollection extends JInternalFrame {
             Double noFAT = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 4)));
             Double noLacto = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 5)));
             Double noSNF = noLacto / 4.0D + 0.21D * noFAT + 0.36D;
-            DecimalFormat df = new DecimalFormat("#.####");
+            DecimalFormat df = new DecimalFormat("0.0000");
             df.setRoundingMode(RoundingMode.CEILING);
             Double noRate = 0.0D;
             String strsnf;

@@ -113,13 +113,13 @@ public class DailyReportPrint implements Printable {
                 }
 
                 cellY += fontHeight;
-                cellX = 90;
+                cellX = 10;
                 font = new Font("Monospaced", 1, 12);
                 g2d.setFont(font);
 
                 for(tblCol = 0; tblCol < this.totalsTable.getColumnCount() - 1; ++tblCol) {
                     g2d.drawString(this.totalsTableData[0][tblCol].toString(), cellX, cellY);
-                    cellX += 60;
+                    cellX += 70;
                 }
             } catch (Exception var22) {
                 var22.printStackTrace();

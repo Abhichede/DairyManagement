@@ -26,7 +26,7 @@ public class PaymentRegister implements Printable {
     int pages = 1;
     PaymentTablePrint paymentTablePrint = new PaymentTablePrint();
     PrinterJob printerJob = null;
-    static String[] title = new String[]{"Code", "PRD. Name", "Litre", "Fat", "SNF", "Rate", "Amount", "Signature"};
+    static String[] title = new String[]{"Code", "PRD. Name", "Litre", "Fat", "SNF", "Rate", "Amount"}; // add last column signature
 
     public PaymentRegister() {
     }
@@ -142,13 +142,13 @@ public class PaymentRegister implements Printable {
                     cellY += fontHeight;
                 }
 
-                cellX = 130;
+                cellX = 110;
                 font = new Font("Monospaced", 1, 12);
                 g2d.setFont(font);
 
                 for(tblCol = 0; tblCol < this.totalsTable.getColumnCount(); ++tblCol) {
                     g2d.drawString(this.totalsTableData[0][tblCol].toString(), cellX, cellY);
-                    cellX += 65;
+                    cellX += 75;
                 }
             } catch (Exception var22) {
                 var22.printStackTrace();

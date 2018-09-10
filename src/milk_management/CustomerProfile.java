@@ -96,7 +96,8 @@ public class CustomerProfile extends JInternalFrame {
                     SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String strFromDate = fromDate.getJFormattedTextField().getText().toString() + " 00:00:00";
                     String strToDate = toDate.getJFormattedTextField().getText().toString() + " 23:59:59";
-                    DecimalFormat decimalFormat = new DecimalFormat("#0.000000");
+                    DecimalFormat decimalFormat = new DecimalFormat("0.00##");
+                    decimalFormat.setRoundingMode(RoundingMode.CEILING);
                     ResultSet resultSet = CustomerProfile.dbConnection.getLastDate(Integer.parseInt(txtCustomerId.getText().toString()));
 
                     try {
@@ -186,7 +187,7 @@ public class CustomerProfile extends JInternalFrame {
                     SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yy");
                     String inputString1 = CustomerProfile.defaultTableModel.getValueAt(0, 0).toString();
                     String inputString2 = CustomerProfile.defaultTableModel.getValueAt(usersTable.getRowCount() - 1, 0).toString();
-                    DecimalFormat df = new DecimalFormat("#.######");
+                    DecimalFormat df = new DecimalFormat("0.0000");
                     df.setRoundingMode(RoundingMode.CEILING);
 
                     try {
