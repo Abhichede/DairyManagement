@@ -79,6 +79,7 @@ public class DatabaseConnection {
         String createEmployee = "ID INT(10) NOT NULL AUTO_INCREMENT, name VARCHAR(50), address VARCHAR(50), mobile VARCHAR(20), allotted_salary VARCHAR(10), salary_start_date VARCHAR(50), designation VARCHAR(50), designation_details VARCHAR(50), total_salary VARCHAR(50) DEFAULT 0, current_month_salary VARCHAR(50) DEFAULT 0, bank_account_number VARCHAR(50), bank_name VARCHAR(50), bank_ifsc VARCHAR(50), bank_branch VARCHAR(50), created_at timestamp,PRIMARY KEY (ID)";
         String createEmpSalary = "ID INT(10) NOT NULL AUTO_INCREMENT,employee_id INT(10) NOT NULL, payment_type VARCHAR(100), payment_desc VARCHAR(200), payment_mode VARCHAR(100), payment_mode_desc VARCHAR(200), amount VARCHAR(20), bonus VARCHAR(20) DEFAULT '0', create_at timestamp, PRIMARY KEY(ID), FOREIGN KEY(employee_id) REFERENCES employees(ID)";
         String createFuel = "ID INT(10) NOT NULL AUTO_INCREMENT, date timestamp, description VARCHAR(100), litres VARCHAR(50), amount VARCHAR(50), PRIMARY KEY(ID)";
+        String createMessageStatus = "ID INT(10) NOT NULL AUTO_INCREMENT, date timestamp, cust_id INT(10), cust_mobile VARCHAR(10), message VARCHAR(300), msg_status VARCHAR(5), msgID VARCHAR(50), PRIMARY KEY(ID)";
         this.createTable("users", createUser);
         this.createTable("customers", createCustomer);
         this.createTable("rate_chart", createRateChart);
@@ -87,6 +88,7 @@ public class DatabaseConnection {
         this.createTable("employees", createEmployee);
         this.createTable("emp_salary", createEmpSalary);
         this.createTable("fuel_desc", createFuel);
+        this.createTable("message_status", createMessageStatus);
     }
 
     public int addUser(String username, String password, String dairy_name, String dairy_address, Component component) {
@@ -809,4 +811,57 @@ public class DatabaseConnection {
 
         return resultSet;
     }
+
+    public int addMessageStatus(int cust_id, String[] values) {
+        String strInsertFuel = "INSERT INTO message_status(cust_id, cust_mobile, message, msg_status, msgID) VALUES(?, ?, ?, ?, ?)";
+        int result = 0;
+
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(strInsertFuel);
+            preparedStatement.setInt(1, cust_id);
+            int j = 1;
+            for(int i = 0; i < values.length; ++i) {
+                preparedStatement.setString(j + 1, values[i]);
+                j++;
+            }
+
+            result = preparedStatement.executeUpdate();
+        } catch (Exception var6) {
+            var6.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public ResultSet getMessageStatusDetails() {
+        String strQuery = "SELECT * FROM message_status order by ID DESC";
+        ResultSet resultSet = null;
+
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(strQuery);
+            resultSet = preparedStatement.executeQuery();
+        } catch (Exception var4) {
+            var4.printStackTrace();
+        }
+
+        return resultSet;
+    }
+    public int updateMessageStatus(int id, String status) {
+        String strInsertFuel = "UPDATE message_status SET msg_status = ? WHERE ID = ?";
+        int result = 0;
+
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(strInsertFuel);
+
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2, id);
+
+            result = preparedStatement.executeUpdate();
+        } catch (Exception var7) {
+            var7.printStackTrace();
+        }
+
+        return result;
+    }
+
 }

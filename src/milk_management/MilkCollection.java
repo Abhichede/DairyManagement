@@ -5,6 +5,7 @@
 
 package milk_management;
 
+import main.APIService;
 import main.ClockLabel;
 import main.DatabaseConnection;
 import main.Printsupport;
@@ -23,6 +24,7 @@ import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MilkCollection extends JInternalFrame {
@@ -270,9 +272,11 @@ public class MilkCollection extends JInternalFrame {
                     }
 
                     int customer_id = 0;
+                    String customer_mobile = "";
 
                     try {
                         customer_id = MilkCollection.customerResultSet.getInt("cust_id");
+                        customer_mobile = MilkCollection.customerResultSet.getString("cust_contact");
                     } catch (Exception var27) {
                         var27.printStackTrace();
                     }
@@ -306,6 +310,31 @@ public class MilkCollection extends JInternalFrame {
                             Printsupport ps = new Printsupport();
                             PrinterJob pj = PrinterJob.getPrinterJob();
                             pj.setPrintable(dailyCollectionPrintJob, ps.getPageFormat(pj, 15.0D, 15.0D, 1));
+
+                            String messageStatus = "";
+
+                            messageStatus = new APIService().sendSMS(customer_mobile, getFormattedMessage(now(),
+                                    MilkCollection.this.shift, customerName, customer_id + "",
+                                    cattleType, strLitre, strfat, strSnf, strLacto, strRate, strTotalPrice), customer_id);
+
+                            if(messageStatus.equals("1"))
+                                messageStatus = "Success";
+                            else if(messageStatus.equals("2"))
+                                messageStatus = "Invalid Credentials";
+                            else if(messageStatus.equals("3"))
+                                messageStatus = "Insufficient Balance";
+                            else if(messageStatus.equals("4"))
+                                messageStatus = "Error";
+                            else if(messageStatus.equals("5"))
+                                messageStatus = "Invalid Sender ID";
+                            else if(messageStatus.equals("6"))
+                                messageStatus = "Invalid Route";
+                            else if(messageStatus.equals("7"))
+                                messageStatus = "Submission Error";
+                            else if(messageStatus.equals("8"))
+                                messageStatus = "ERROR: No Internet Connection";
+
+                            JOptionPane.showInternalMessageDialog(MilkCollection.this.getContentPane(), "Message Status: "+ messageStatus, messageStatus, JOptionPane.INFORMATION_MESSAGE);
 
                             try {
                                 pj.print();
@@ -460,7 +489,6 @@ public class MilkCollection extends JInternalFrame {
                     Printsupport ps = new Printsupport();
                     PrinterJob pj = PrinterJob.getPrinterJob();
                     pj.setPrintable(dailyCollectionPrintJob, ps.getPageFormat(pj, 15.0D, 15.0D, 1));
-
                     try {
                         pj.print();
                     } catch (PrinterException var11) {
@@ -487,7 +515,7 @@ public class MilkCollection extends JInternalFrame {
             Double noFAT = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 4)));
             Double noLacto = Double.parseDouble(String.valueOf(table.getValueAt(rowIndex, 5)));
             Double noSNF = noLacto / 4.0D + 0.21D * noFAT + 0.36D;
-            DecimalFormat df = new DecimalFormat("0.0000");
+            DecimalFormat df = new DecimalFormat("0.0");
             df.setRoundingMode(RoundingMode.CEILING);
             Double noRate = 0.0D;
             String strsnf;
@@ -536,5 +564,32 @@ public class MilkCollection extends JInternalFrame {
         }
 
         return number;
+    }
+
+    public String getFormattedMessage(String date, String shift, String prd_name, String acc_no,
+                                      String milk_type, String ltr, String fat, String snf, String lacto, String rate,
+                                      String amount){
+        String message = "DATE: "+ date +"\n"+
+                "SHIFT: "+ shift +"\n"+
+                "PRD. NAME: "+ prd_name +"\n"+
+                "ACC NO.: "+ acc_no +"\n"+
+                "MILK TYPE: "+ milk_type +"\n"+
+                "LTR: "+ ltr +"\n"+
+                "FAT: "+ fat +"\n"+
+                "SNF: "+ snf +"\n"+
+                "LACTO: "+ lacto +"\n"+
+                "RATE: "+ rate +"\n"+
+                "AMOUNT: "+ amount +"\n"+
+                "Thank you\n"+
+                "----------------\n"+
+                "Software by: Linker it solutions";
+
+        return message;
+    }
+
+    public static String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+        return sdf.format(cal.getTime());
     }
 }

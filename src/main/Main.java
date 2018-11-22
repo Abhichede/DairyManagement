@@ -7,6 +7,7 @@ import employees.EditEmployee;
 import employees.ShowEmployee;
 import milk_management.*;
 import settings.BackupData;
+import settings.MessageHistory;
 import settings.RateChart;
 import users.CreateUser;
 import users.DeleteUser;
@@ -18,6 +19,8 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -189,6 +192,10 @@ public class Main extends JFrame {
         itemBackupData.setFont(frameTextFont);
         itemBackupData.setPreferredSize(new Dimension(200, itemExit.getPreferredSize().height + 10));
 
+        JMenuItem itemMessageHistory = new JMenuItem("Message History");
+        itemMessageHistory.setFont(frameTextFont);
+        itemMessageHistory.setPreferredSize(new Dimension(200, itemExit.getPreferredSize().height + 10));
+
 
         JMenuItem itemFuel = new JMenuItem("Fuel");
         itemFuel.setFont(frameTextFont);
@@ -214,6 +221,7 @@ public class Main extends JFrame {
         menuEmployee.add(itemShowEmployee);
         menuSettings.add(itemRateChart);
         menuSettings.add(itemBackupData);
+        menuSettings.add(itemMessageHistory);
         menuFuel.add(itemFuel);
         itemLogout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -440,6 +448,30 @@ public class Main extends JFrame {
                 }
 
                 Main.internalFrame = new BackupData();
+                Main.internalFrame.setSize(Main.desktopPane.getWidth(), Main.desktopPane.getHeight());
+                Dimension desktopSize = Main.desktopPane.getSize();
+                Dimension jInternalFrameSize = Main.internalFrame.getSize();
+                int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+                int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+                Main.internalFrame.setLocation(width, height);
+                Main.internalFrame.setVisible(true);
+                Main.desktopPane.add(Main.internalFrame);
+            }
+        });
+
+        itemMessageHistory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (Main.internalFrame != null) {
+                    Main.internalFrame.dispose();
+                }
+
+                try {
+                    Main.internalFrame = new MessageHistory();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
                 Main.internalFrame.setSize(Main.desktopPane.getWidth(), Main.desktopPane.getHeight());
                 Dimension desktopSize = Main.desktopPane.getSize();
                 Dimension jInternalFrameSize = Main.internalFrame.getSize();

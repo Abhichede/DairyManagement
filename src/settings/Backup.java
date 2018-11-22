@@ -24,7 +24,7 @@ public class Backup
         String Mysqlpath = getMysqlBinPath(user, password, db);
        try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db, user, password);
-            st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,                                                                          ResultSet.CONCUR_UPDATABLE);
+            st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (Exception e) {
             System.out.print("I am here yaaar");
             e.printStackTrace();

@@ -41,7 +41,7 @@ public class BackupData extends JInternalFrame{
 
                     /*NOTE: Creating Path Constraints for backup saving*/
                     /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-                    String savePath = jarDir + "/backup/" + "backup_"+new Date()+".sql";
+                    String savePath = jarDir + "/backup/" + "backup_"+new Date().getTime()+".sql";
 
                 Backup b = new Backup();
 
